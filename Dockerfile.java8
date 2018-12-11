@@ -1,0 +1,2 @@
+FROM rchain/buildenv:latest
+RUN update-java-alternatives -s java-1.8.0-openjdk-amd64
