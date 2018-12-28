@@ -25,7 +25,7 @@ apt update
 
 # install rust
 curl -f -L https://static.rust-lang.org/rustup.sh -O
-sh rustup.sh
+sh rustup.sh -y
 rustup update
 
 PACKAGES=(
