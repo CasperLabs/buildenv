@@ -23,6 +23,11 @@ add-apt-repository \
 
 apt update
 
+# install rust
+curl -f -L https://static.rust-lang.org/rustup.sh -O
+sh rustup.sh
+rustup update
+
 PACKAGES=(
 	# utilities for debugging
 	curl
@@ -42,6 +47,7 @@ PACKAGES=(
 	openjdk-11-jdk-headless
 	openjdk-8-jdk-headless
 	sbt=1.\*
+	protobuf-compiler
 
 	# integration tests
 	python3
