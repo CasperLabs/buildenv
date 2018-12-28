@@ -9,7 +9,7 @@ V=$(git describe --tags)
 set -x
 docker build -t $N:$C .
 docker tag $N:$C $N:$V
-#docker tag $N:$C $N:latest
+docker tag $N:$C $N:latest
 
 #docker build -f Dockerfile.java8 -t $N:$C-java8 .
 #docker tag $N:$C-java8 $N:$V-java8
