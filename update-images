@@ -4,7 +4,7 @@ set -e
 N=casperlabs/buildenv
 C=${DRONE_COMMIT_SHA:-$(git rev-parse --short HEAD)}
 git fetch -t
-V=$(git describe --tags)
+V=$(git describe --tags --always)
 
 set -x
 docker build -t $N:$C .
