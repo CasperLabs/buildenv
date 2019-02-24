@@ -4,6 +4,7 @@ branches:
 clone:
   git-clone:
     image: plugins/git:next
+    tags: true
 
 pipeline:
   build-and-upload:
