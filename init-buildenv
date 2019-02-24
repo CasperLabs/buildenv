@@ -27,7 +27,12 @@ apt update
 curl -f -L https://static.rust-lang.org/rustup.sh -O
 sh rustup.sh -y
 source $HOME/.cargo/env
+PATH="$HOME/.cargo/bin:$PATH"
 rustup update
+apt install -y gcc
+cargo install cargo-rpm
+cargo install cargo-deb
+cargo install cargo-tarball
 
 PACKAGES=(
 	# utilities for debugging
