@@ -29,6 +29,7 @@ sh rustup.sh -y
 source $HOME/.cargo/env
 PATH="$HOME/.cargo/bin:$PATH"
 rustup update
+apt install -y gcc
 cargo install cargo-rpm
 cargo install cargo-deb
 cargo install cargo-tarball
@@ -53,7 +54,6 @@ PACKAGES=(
 	openjdk-8-jdk-headless
 	sbt=1.\*
 	protobuf-compiler
-	gcc
 	cmake
 
 	# integration tests
