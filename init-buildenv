@@ -54,6 +54,7 @@ PACKAGES=(
 	openjdk-8-jdk-headless
 	sbt=1.\*
 	protobuf-compiler
+	libprotobuf-dev
 	cmake
 
 	# integration tests
