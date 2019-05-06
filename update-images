@@ -10,18 +10,4 @@ set -x
 docker build -t $N:$C .
 docker tag $N:$C $N:$V
 docker tag $N:$C $N:latest
-
-#docker build -f Dockerfile.java8 -t $N:$C-java8 .
-#docker tag $N:$C-java8 $N:$V-java8
-#docker tag $N:$C-java8 $N:latest-java8
-set +x
-
-builtin echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-
-set -x
-docker push $N:$V
-docker push $N:latest
-
-#docker push $N:$V-java8
-#docker push $N:latest-java8
 set +x
