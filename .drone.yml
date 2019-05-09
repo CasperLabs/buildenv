@@ -6,15 +6,24 @@ clone:
     image: plugins/git:next
 
 pipeline:
-  build-and-upload:
+  build:
     image: docker:stable
     commands:
       - apk add git bash
       - ./update-images
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  push-image:
+    image: docker:stable
+    commands:
+      - ./push-docker.sh
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     secrets:
       - docker_username
       - docker_password
+    when:
+      event: [ push, tag ]
 
 # vim:sw=2:ts=2:
