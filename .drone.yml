@@ -17,6 +17,7 @@ pipeline:
   push-image:
     image: docker:stable
     commands:
+      - apk add git bash
       - ./push-docker.sh
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
