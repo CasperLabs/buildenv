@@ -60,7 +60,7 @@ PACKAGES=(
 	protobuf-compiler
 	libprotobuf-dev
 	cmake
-    npm
+        npm
 
 	# integration tests
 	python3
