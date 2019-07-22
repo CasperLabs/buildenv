@@ -27,4 +27,18 @@ pipeline:
     when:
       event: [ push, tag ]
 
+  notify:
+    channel: alerts
+    image: plugins/slack
+    secrets:
+      - slack_webhook
+    template: |
+      *{{ uppercasefirst build.status }}*
+        Author: {{ build.author }}
+        Drone Build: <{{ build.link }}|#{{ build.number }}>
+        Commit Link: <https://github.com/{{repo.owner}}/{{repo.name}}/commit/{{build.commit}}|{{ truncate build.commit 10 }}>
+    when:
+      status:
+        - failure
+
 # vim:sw=2:ts=2:
