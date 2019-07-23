@@ -28,13 +28,13 @@ curl -f -L https://static.rust-lang.org/rustup.sh -O
 sh rustup.sh -y
 source $HOME/.cargo/env
 PATH="$HOME/.cargo/bin:$PATH"
-curl -o /tmp/rust-toolchain  https://raw.githubusercontent.com/CasperLabs/CasperLabs/dev/execution-engine/rust-toolchain
-rustup toolchain install $(cat /tmp/rust-toolchain)
+RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/CasperLabs/CasperLabs/dev/execution-engine/rust-toolchain)
+rustup toolchain install ${RUST_TOOLCHAIN}
 rustup update
 apt install -y gcc
-cargo +$(cat /tmp/rust-toolchain) install cargo-rpm
-cargo +$(cat /tmp/rust-toolchain) install cargo-deb
-cargo +$(cat /tmp/rust-toolchain) install cargo-tarball
+cargo +${RUST_TOOLCHAIN} install cargo-rpm
+cargo +${RUST_TOOLCHAIN} install cargo-deb
+cargo +${RUST_TOOLCHAIN} install cargo-tarball
 
 # install docker-compose
 curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
