@@ -34,7 +34,6 @@ rustup update
 apt install -y gcc
 cargo +${RUST_TOOLCHAIN} install cargo-rpm
 cargo +${RUST_TOOLCHAIN} install cargo-deb
-cargo +${RUST_TOOLCHAIN} install cargo-tarball
 
 # install docker-compose
 curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
