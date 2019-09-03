@@ -44,6 +44,9 @@ chmod +x /usr/local/bin/docker-compose
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
 apt-get install -y nodejs
 
+# add link checker plugins to npm
+npm install --global remark-cli remark-validate-links remark-lint-no-dead-urls
+
 PACKAGES=(
 	# utilities for debugging
 	curl
