@@ -1,0 +1,12 @@
+{
+    "name": "rpm",
+    "type": "rpm",
+    "private": false,
+    "desc": "This repo is for CasperLabs debian packages",
+    "labels":["casperlabs", "rpm"],
+    "gpg_sign_metadata": false,
+    "gpg_sign_files":false,
+    "gpg_use_owner_key":false,
+    "yum_metadata_depth": 0,
+    "yum_groups_file": ""
+}

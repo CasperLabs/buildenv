@@ -68,4 +68,4 @@ RUN /tmp/cl_dependencies.sh
 
 ENV LC_ALL en_US.UTF-8
 
-ADD bintray_cfg/ /opt/bintray_cfg/
+ADD bintray/ /opt/bintray/

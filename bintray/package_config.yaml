@@ -1,0 +1,80 @@
+# max value of threads matche GOMAXPROCS (total logical CPUs)
+threads: 1
+
+cleanup: false
+
+# documentation for bintray upload options
+# https://www.jfrog.com/confluence/display/CLI/CLI+for+JFrog+Artifactory#CLIforJFrogArtifactory-UploadingFiles
+
+bintray:
+  repos:
+    - name: debian
+      subject: casperlabs
+      config:
+        repoconfigfilepath: repo_config_debian.json
+        type: debian
+        isprivate: false
+        desc: This repo is for CasperLabs debian packages
+        labels: ['casperlabs', 'debian']
+        gpgsignartifacts: false
+        gpgsignmetadata: false
+        gpguseownerkey: false
+
+      packages:
+        - package: CasperLabs
+          config:
+            desc: Debian packages
+            licenses: Apache-2.0
+            vcsurl: https://github.com/CasperLabs/CasperLabs.git
+            githubrepo: CasperLabs/CasperLabs
+            publicdownloadnumbers: false
+            publicstats: true
+          upload:
+            params:
+              path:
+                version: v0.9.1
+            publish: true
+            pkgdeb: bionic/main/amd64,i386
+            target: ./
+            # use this option when the entire path is regex
+            regex: false
+            recursive: false
+            file_pattern: /opt/bintray/artifacts/*.txt
+            # upload all under target path, without reflecting upload path hierachy
+            flat: true
+
+    - name: rpm
+      subject: casperlabs
+      config:
+        repoconfigfilepath: repo_config_rpm.json
+        type: rpm
+        isprivate: false
+        desc: This repo is for CasperLabs RPM packages
+        labels: ['casperlabs', 'rpm']
+        gpg_sign_metadata:  false
+        gpg_sign_files: false
+        gpg_use_owner_key: false
+        yum_metadata_depth:  0
+        yum_groups_file: ''
+    
+      packages:
+        - package: CasperLabs
+          config:
+            desc: RPM packages
+            licenses: Apache-2.0
+            vcsurl: https://github.com/CasperLabs/CasperLabs.git
+            githubrepo: CasperLabs/CasperLabs
+            publicdownloadnumbers: false
+            publicstats: true
+          upload:
+            params:
+              path:
+                version: v0.9.1
+            publish: true
+            pkgdeb: distribution/component/architecture
+            target: ./
+            regex: false
+            # upload all under target path, without reflecting upload path hierachy
+            flat: true
+            recursive: false
+            file_pattern: /opt/bintray/artifacts/*.rpm
