@@ -7,6 +7,7 @@
 GIT_TAG="$1"
 
 BINTRAY_HOME=/opt/bintray
+ARTIFACTS_DIR="$2"
 
 #VARS
 SEM_VER_REG="^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(\-(0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(\.(0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?(\+[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$"
@@ -36,8 +37,8 @@ mkdir -p ${PWD}/upload
 
 # Copy metapackages to upload dir
 if [ -f "$DEB_META_PATH" ] && [ -f "$RPM_META_PATH" ]; then
-    cp ${DEB_META_PATH} ${PWD}/upload/
-    cp ${RPM_META_PATH} ${PWD}/upload/
+    cp ${DEB_META_PATH} "$ARTIFACTS_DIR"
+    cp ${RPM_META_PATH} "$ARTIFACTS_DIR"
 else
     echo "Metapackages not found for git tag: $GIT_TAG"
     exit 1
@@ -45,8 +46,8 @@ fi
 
 
 #Switch dir
-echo "Switching to upload directory."
-cd ${PWD}/upload
+echo "Switching to upload directory: $ARTIFACTS_DIR"
+cd "$ARTIFACTS_DIR"
 
 #Download from github
 echo ""
