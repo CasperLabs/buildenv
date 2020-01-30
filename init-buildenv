@@ -95,6 +95,3 @@ apt clean
 pip3 install argparse docker pexpect requests
 # integration-testing/
 pip3 install docker pytest delayed_assert
-
-curl -s https://codecov.io/bash >/usr/local/bin/codecov
-chmod +x /usr/local/bin/codecov
