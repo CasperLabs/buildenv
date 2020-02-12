@@ -9,7 +9,7 @@ RUN apt install -y apt-transport-https \
                     lsb-release software-properties-common \
                     rpm equivs gcc
 
-RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 RUN echo 'deb https://dl.bintray.com/sbt/debian /' >/etc/apt/sources.list.d/sbt.list
 
