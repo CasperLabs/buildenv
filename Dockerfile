@@ -62,9 +62,11 @@ RUN pip3 install docker pytest delayed_assert
 
 RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen && locale-gen
 
-COPY cl_dependencies.sh /tmp/
-
-RUN /tmp/cl_dependencies.sh
+RUN git clone https://github.com/CasperLabs/CasperLabs.git ~/CasperLabs
+RUN cd ~/CasperLabs && sbt update
+RUN cd ~/CasperLabs/execution-engine && make setup
+RUN cd ~/CasperLabs/execution-engine && ~/.cargo/bin/cargo fetch
+RUN rm -rf ~/CasperLabs
 
 ENV LC_ALL en_US.UTF-8
 
