@@ -1,0 +1,10 @@
+{
+  "name": "debian",
+  "type": "debian",
+  "private": false,
+  "desc": "This repo is for CasperLabs debian packages",
+    "labels":["casperlabs", "debian"],
+  "gpg_sign_metadata": false,
+  "gpg_sign_files":false,
+  "gpg_use_owner_key":false,
+}
