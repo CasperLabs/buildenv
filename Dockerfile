@@ -58,7 +58,7 @@ RUN npm install --global remark-cli remark-validate-links remark-lint-no-dead-ur
 # p2p-test-tool.py
 RUN pip3 install argparse docker pexpect requests
 # integration-testing/
-RUN pip3 install docker pytest delayed_assert
+RUN pip3 install docker delayed_assert pipenv pytest dataclasses typing_extensions grpcio grpcio_tools protobuf in-place ed25519 pyblake2 lz4
 
 RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen && locale-gen
 
