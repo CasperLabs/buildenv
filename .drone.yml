@@ -28,7 +28,6 @@ pipeline:
       event: [ push, tag ]
 
   notify:
-    channel: alerts
     image: plugins/slack
     secrets:
       - slack_webhook
