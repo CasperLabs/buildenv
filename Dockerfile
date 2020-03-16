@@ -9,6 +9,10 @@ RUN apt install -y apt-transport-https \
                     lsb-release software-properties-common \
                     rpm equivs gcc
 
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+
+RUN apt update
+
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 RUN echo 'deb https://dl.bintray.com/sbt/debian /' >/etc/apt/sources.list.d/sbt.list
@@ -47,7 +51,7 @@ RUN . ~/.rust_env; cargo +${RUST_TOOLCHAIN} install cargo-deb
 RUN apt -y install \
               curl moreutils netcat-openbsd nmap openssh-server psmisc screen socat tmux wget \
               java-common jflex openjdk-11-jdk-headless openjdk-8-jdk-headless sbt=1.\* \
-              protobuf-compiler libprotobuf-dev cmake python3 python3-pip \
+              protobuf-compiler libprotobuf-dev cmake python3.7 python3-pip \
               docker-ce rpm fakeroot lintian nodejs rsync locales libssl-dev pkg-config
 
 RUN apt clean
@@ -58,7 +62,7 @@ RUN npm install --global remark-cli remark-validate-links remark-lint-no-dead-ur
 # p2p-test-tool.py
 RUN pip3 install argparse docker pexpect requests
 # integration-testing/
-RUN pip3 install docker delayed_assert pipenv pytest dataclasses typing_extensions grpcio grpcio_tools protobuf in-place ed25519 pyblake2 lz4
+RUN pip3 install docker delayed_assert pipenv pytest typing_extensions grpcio grpcio_tools protobuf in-place ed25519 pyblake2 lz4
 
 RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen && locale-gen
 
