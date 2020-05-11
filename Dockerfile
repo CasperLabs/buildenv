@@ -52,7 +52,7 @@ RUN apt -y install \
               curl moreutils netcat-openbsd nmap openssh-server psmisc screen socat tmux wget \
               java-common jflex openjdk-11-jdk-headless openjdk-8-jdk-headless sbt=1.\* \
               protobuf-compiler libprotobuf-dev cmake python3.7 libpython3.7-dev python3-pip \
-              docker-ce rpm fakeroot lintian nodejs rsync locales libssl-dev pkg-config
+              docker-ce rpm fakeroot lintian nodejs rsync locales libssl-dev pkg-config jq
 
 RUN apt clean
 
