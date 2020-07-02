@@ -9,8 +9,6 @@ RUN apt install -y apt-transport-https \
                     lsb-release software-properties-common \
                     rpm equivs gcc
 
-#RUN add-apt-repository -y ppa:deadsnakes/ppa
-
 RUN apt update
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
