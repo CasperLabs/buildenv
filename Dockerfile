@@ -9,7 +9,7 @@ RUN apt install -y apt-transport-https \
                     lsb-release software-properties-common \
                     rpm equivs gcc
 
-RUN add-apt-repository -y ppa:deadsnakes/ppa
+#RUN add-apt-repository -y ppa:deadsnakes/ppa
 
 RUN apt update
 
@@ -52,7 +52,7 @@ RUN apt -y install \
               curl moreutils netcat-openbsd nmap openssh-server psmisc screen socat tmux wget \
               java-common jflex openjdk-11-jdk-headless openjdk-8-jdk-headless sbt=1.\* \
               protobuf-compiler libprotobuf-dev \
-              python3.8 libpython3.8-dev python3.7 libpython3.7-dev python3-pip \
+              python3.7 libpython3.7-dev python3-pip python3.8 libpython3.8-dev \
               docker-ce rpm fakeroot lintian nodejs rsync locales libssl-dev pkg-config jq
 
 RUN apt clean
