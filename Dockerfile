@@ -38,6 +38,7 @@ ENV PATH="$PATH:/root/.cargo/bin"
 RUN echo export RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/CasperLabs/CasperLabs/dev/execution-engine/rust-toolchain) >> ~/.rust_env
 
 RUN . ~/.rust_env; rustup toolchain install "${RUST_TOOLCHAIN}"
+RUN . ~/.rust_env; rustup toolchain install stable
 RUN rustup update
 RUN . ~/.rust_env; cargo +${RUST_TOOLCHAIN} install cargo-rpm
 RUN . ~/.rust_env; cargo +${RUST_TOOLCHAIN} install cargo-deb
