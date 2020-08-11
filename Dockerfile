@@ -62,6 +62,13 @@ run curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.
 # add link checker plugins to npm
 RUN npm install --global remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
 
+
+# add yarn to npm
+RUN npm install --global yarn
+# install lerna by yarn
+RUN yarn global add lerna
+
+
 # p2p-test-tool.py
 RUN pip3 install argparse docker pexpect requests
 # integration-testing/
