@@ -10,7 +10,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/update-images.sh buildenv
+      - ./update-images.sh buildenv
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
@@ -22,7 +22,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/push-docker.sh buildenv
+      - ./push-docker.sh buildenv
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
@@ -38,7 +38,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/update-images.sh node-build-u1804
+      - ./update-images.sh node-build-u1804
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
@@ -50,7 +50,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/push-docker.sh node-build-u1804
+      - ./push-docker.sh node-build-u1804
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
@@ -66,7 +66,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/update-images.sh node-build-u2004
+      - ./update-images.sh node-build-u2004
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
@@ -78,7 +78,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/push-docker.sh node-build-u2004
+      - ./push-docker.sh node-build-u2004
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
