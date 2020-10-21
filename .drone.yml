@@ -10,7 +10,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/update-images buildenv
+      - ./docker/update-images.sh buildenv
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
@@ -38,7 +38,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/update-images node-build-u1804
+      - ./docker/update-images.sh node-build-u1804
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
@@ -66,7 +66,7 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./docker/update-images node-build-u2004
+      - ./docker/update-images.sh node-build-u2004
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
