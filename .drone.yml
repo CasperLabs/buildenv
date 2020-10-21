@@ -33,8 +33,6 @@ pipeline:
       changeset:
         includes:
           - "**./docker/buildenv/*"
-    depends_on:
-      - build-buildenv
 
   build-node-build-u1804:
     image: docker:stable
@@ -63,8 +61,6 @@ pipeline:
       changeset:
         includes:
           - "**./docker/node-build-u1804/*"
-    depends_on:
-      - build-node-build-u1804
 
   build-node-build-u2004:
     image: docker:stable
@@ -93,8 +89,6 @@ pipeline:
       changeset:
         includes:
           - "**./docker/node-build-u2004/*"
-    depends_on:
-      - build-node-build-u2004
 
   notify:
     image: plugins/slack
