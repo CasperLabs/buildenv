@@ -82,4 +82,4 @@ RUN rm -rf ~/CasperLabs
 
 ENV LC_ALL en_US.UTF-8
 
-ADD bintray/ /opt/bintray/
+ADD ../../bintray /opt/bintray/

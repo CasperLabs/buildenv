@@ -6,19 +6,23 @@ clone:
     image: plugins/git:next
 
 pipeline:
-  build:
+  build-buildenv:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./update-images
+      - ./docker/update-images buildenv
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**./docker/buildenv/*"
 
-  push-image:
+  push-image-buildenv:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./push-docker.sh
+      - ./docker/push-docker.sh buildenv
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
@@ -26,6 +30,65 @@ pipeline:
       - docker_password
     when:
       event: [ push, tag ]
+      changeset:
+        includes:
+          - "**./docker/buildenv/*"
+
+  build-node-build-u1804:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./docker/update-images node-build-u1804
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**./docker/node-build-u1804/*"
+
+  push-image-node-build-u1804:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./docker/push-docker.sh node-build-u1804
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - docker_username
+      - docker_password
+    when:
+      event: [ push, tag ]
+      changeset:
+        includes:
+          - "**./docker/node-build-u1804/*"
+
+  build-node-build-u2004:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./docker/update-images node-build-u2004
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**./docker/node-build-u2004/*"
+
+  push-image-node-build-u2004:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./docker/push-docker.sh node-build-u2004
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - docker_username
+      - docker_password
+    when:
+      event: [ push, tag ]
+      changeset:
+        includes:
+          - "**./docker/node-build-u2004/*"
 
   notify:
     image: plugins/slack

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-N=casperlabs/buildenv
+N=casperlabs/$1
 C=${DRONE_COMMIT_SHA:-$(git rev-parse --short HEAD)}
 git fetch -t
 V=$(git describe --tags --always)
