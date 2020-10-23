@@ -1,0 +1,1 @@
+This is a minimal build image to build and package casper-node .debs on Ubuntu 18-04.
