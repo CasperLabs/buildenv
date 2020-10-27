@@ -16,7 +16,7 @@ pipeline:
     when:
       changeset:
         includes:
-          - "**./docker/buildenv/*"
+          - "**./buildenv/*"
 
   push-image-buildenv:
     image: docker:stable
@@ -32,7 +32,7 @@ pipeline:
       event: [ push, tag ]
       changeset:
         includes:
-          - "**./docker/buildenv/*"
+          - "**./buildenv/*"
 
   build-node-build-u1804:
     image: docker:stable
@@ -44,7 +44,7 @@ pipeline:
     when:
       changeset:
         includes:
-          - "**./docker/node-build-u1804/*"
+          - "**./node-build-u1804/*"
 
   push-image-node-build-u1804:
     image: docker:stable
@@ -60,7 +60,7 @@ pipeline:
       event: [ push, tag ]
       changeset:
         includes:
-          - "**./docker/node-build-u1804/*"
+          - "**./node-build-u1804/*"
 
   build-node-build-u2004:
     image: docker:stable
@@ -72,7 +72,7 @@ pipeline:
     when:
       changeset:
         includes:
-          - "**./docker/node-build-u2004/*"
+          - "**./node-build-u2004/*"
 
   push-image-node-build-u2004:
     image: docker:stable
@@ -88,7 +88,35 @@ pipeline:
       event: [ push, tag ]
       changeset:
         includes:
-          - "**./docker/node-build-u2004/*"
+          - "**./node-build-u2004/*"
+
+  build-s3cmd-image:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./update-images.sh s3cmd-build
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**./s3cmd-build/*"
+
+  push-image-s3cmd:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./push-docker.sh s3cmd-build
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - docker_username
+      - docker_password
+    when:
+      event: [ push, tag ]
+      changeset:
+        includes:
+          - "**./s3cmd-build/*"
 
   notify:
     image: plugins/slack
