@@ -90,6 +90,34 @@ pipeline:
         includes:
           - "**./docker/node-build-u2004/*"
 
+  build-s3cmd-image:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./update-images.sh s3cmd-image
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**./docker/s3cmd-image/*"
+
+  push-image-s3cmd:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./push-docker.sh s3cmd-image
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - docker_username
+      - docker_password
+    when:
+      event: [ push, tag ]
+      changeset:
+        includes:
+          - "**./docker/s3cmd-image/*"
+
   notify:
     image: plugins/slack
     secrets:
