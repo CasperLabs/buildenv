@@ -94,19 +94,19 @@ pipeline:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./update-images.sh s3cmd-image
+      - ./update-images.sh s3cmd-build
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     when:
       changeset:
         includes:
-          - "**./docker/s3cmd-image/*"
+          - "**./docker/s3cmd-build/*"
 
   push-image-s3cmd:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./push-docker.sh s3cmd-image
+      - ./push-docker.sh s3cmd-build
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
@@ -116,7 +116,7 @@ pipeline:
       event: [ push, tag ]
       changeset:
         includes:
-          - "**./docker/s3cmd-image/*"
+          - "**./docker/s3cmd-build/*"
 
   notify:
     image: plugins/slack
