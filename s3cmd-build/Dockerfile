@@ -1,5 +1,6 @@
 FROM alpine:3.12
 
+RUN apk add --no-cache bash
 RUN apk add --no-cache python3 py-pip py-setuptools ca-certificates libmagic curl jq
 RUN pip install python-dateutil python-magic
 
