@@ -6,90 +6,6 @@ clone:
     image: plugins/git:next
 
 pipeline:
-  build-buildenv:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./update-images.sh buildenv
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      changeset:
-        includes:
-          - "buildenv/**"
-
-  push-image-buildenv:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./push-docker.sh buildenv
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    secrets:
-      - docker_username
-      - docker_password
-    when:
-      event: [ push, tag ]
-      changeset:
-        includes:
-          - "buildenv/**"
-
-  build-node-build-u1804:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./update-images.sh node-build-u1804
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      changeset:
-        includes:
-          - "node-build-u1804/**"
-
-  push-image-node-build-u1804:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./push-docker.sh node-build-u1804
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    secrets:
-      - docker_username
-      - docker_password
-    when:
-      event: [ push, tag ]
-      changeset:
-        includes:
-          - "node-build-u1804/**"
-
-  build-node-build-u2004:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./update-images.sh node-build-u2004
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      changeset:
-        includes:
-          - "node-build-u2004/**"
-
-  push-image-node-build-u2004:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./push-docker.sh node-build-u2004
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    secrets:
-      - docker_username
-      - docker_password
-    when:
-      event: [ push, tag ]
-      changeset:
-        includes:
-          - "node-build-u2004/**"
-
   build-s3cmd-image:
     image: docker:stable
     commands:
@@ -100,7 +16,7 @@ pipeline:
     when:
       changeset:
         includes:
-          - "s3cmd-build/**"
+          - "**/s3cmd-build/Dockerfile"
 
   push-image-s3cmd:
     image: docker:stable
@@ -116,7 +32,91 @@ pipeline:
       event: [ push, tag ]
       changeset:
         includes:
-          - "s3cmd-build/**"
+          - "**/s3cmd-build/Dockerfile"
+
+  build-buildenv:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./update-images.sh buildenv
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**/buildenv/**"
+
+  push-image-buildenv:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./push-docker.sh buildenv
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - docker_username
+      - docker_password
+    when:
+      event: [ push, tag ]
+      changeset:
+        includes:
+          - "**/buildenv/**"
+
+  build-node-build-u1804:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./update-images.sh node-build-u1804
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**/node-build-u1804/Dockerfile"
+
+  push-image-node-build-u1804:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./push-docker.sh node-build-u1804
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - docker_username
+      - docker_password
+    when:
+      event: [ push, tag ]
+      changeset:
+        includes:
+          - "**/node-build-u2004/Dockerfile"
+
+  build-node-build-u2004:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./update-images.sh node-build-u2004
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    when:
+      changeset:
+        includes:
+          - "**/node-build-u2004/Dockerfile"
+
+  push-image-node-build-u2004:
+    image: docker:stable
+    commands:
+      - apk add git bash
+      - ./push-docker.sh node-build-u2004
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - docker_username
+      - docker_password
+    when:
+      event: [ push, tag ]
+      changeset:
+        includes:
+          - "**/node-build-u2004/Dockerfile"
 
   notify:
     image: plugins/slack
