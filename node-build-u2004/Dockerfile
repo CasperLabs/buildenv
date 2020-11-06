@@ -2,8 +2,10 @@
 # focal = 20.04
 FROM ubuntu:focal
 
+# DEBIAN_FRONTEND required for tzdata dependency install
 RUN apt-get update \
-    && apt-get install -y curl gnupg gcc git ca-certificates \
+    && DEBIAN_FRONTEND="noninteractive" \
+        apt-get install -y curl gnupg gcc git ca-certificates \
               protobuf-compiler libprotobuf-dev \
               pkg-config libssl-dev jq
 
