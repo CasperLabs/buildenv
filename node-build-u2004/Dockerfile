@@ -7,7 +7,7 @@ RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" \
         apt-get install -y curl gnupg gcc git ca-certificates \
               protobuf-compiler libprotobuf-dev \
-              pkg-config libssl-dev make build-essential
+              pkg-config libssl-dev make build-essential jq
 
 # install cmake
 RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz | tar -C /usr/local --strip-components=1 -xz
