@@ -52,7 +52,8 @@ RUN apt -y install \
               java-common jflex openjdk-11-jdk-headless openjdk-8-jdk-headless sbt=1.\* \
               protobuf-compiler libprotobuf-dev \
               python3.7 libpython3.7-dev python3-pip python3.8 libpython3.8-dev \
-              docker-ce rpm fakeroot lintian nodejs rsync locales libssl-dev pkg-config jq
+              docker-ce rpm fakeroot lintian nodejs rsync locales libssl-dev pkg-config jq \
+              gettext-base
 
 RUN apt clean
 
