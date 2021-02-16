@@ -6,19 +6,19 @@ clone:
     image: plugins/git:next
 
 pipeline:
-  build-buildenv:
+  build-casper-node-launcher-build:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./update-images.sh buildenv
+      - ./update-images.sh casper-node-launcher-build
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  push-image-buildenv:
+  push-image-casper-node-launcher-build:
     image: docker:stable
     commands:
       - apk add git bash
-      - ./push-docker.sh buildenv
+      - ./push-docker.sh casper-node-launcher-build
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
