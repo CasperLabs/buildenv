@@ -4,7 +4,7 @@ FROM ubuntu:bionic
 
 RUN apt-get update \
     && apt-get install -y curl gnupg gcc git ca-certificates \
-              pkg-config jq gettext-base python3.6 python3-pip
+              pkg-config libssl-dev jq gettext-base python3.6 python3-pip
 
 # toml for publish script
 RUN pip3 install toml
@@ -18,4 +18,5 @@ ENV PATH="$PATH:/root/.cargo/bin"
 
 RUN rustup toolchain install stable \
     && rustup update \
-    && cargo +stable install cargo-deb
+    && cargo +stable install cargo-deb \
+    && cargo +stable install cargo-audit
