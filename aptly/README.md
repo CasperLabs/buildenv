@@ -1,0 +1,15 @@
+```
+docker run --rm --name casper-aptly \
+  -e PLUGIN_DEB_PATH="$PLUGIN_DEB_PATH" \
+  -e PLUGIN_REPO_NAME="$PLUGIN_REPO_NAME" \
+  -e PLUGIN_REGION="$PLUGIN_REGION" \
+  -e PLUGIN_ACL="$PLUGIN_ACL" \
+  -e PLUGIN_PREFIX="$PLUGIN_PREFIX" \
+  -e PLUGIN_GPG_PASS="$PLUGIN_GPG_PASS" \
+  -e PLUGIN_GPG_KEY="$PLUGIN_GPG_KEY" \
+  -e PLUGIN_DISTRIBUTION_ID="$PLUGIN_DISTRIBUTION_ID" \
+  -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
+  -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+  -v <path>:<path> \
+  casper/repo-publish:latest
+```
