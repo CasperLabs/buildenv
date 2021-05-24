@@ -4,7 +4,7 @@ FROM ubuntu:bionic
 
 RUN apt-get update \
     && apt-get install -y curl gnupg gcc git ca-certificates \
-              protobuf-compiler libprotobuf-dev \
+              protobuf-compiler libprotobuf-dev unzip \
               pkg-config libssl-dev jq gettext-base python3.6 python3-pip
 
 # toml for publish script
@@ -43,3 +43,7 @@ RUN BRANCH="1.0.20" \
     && cmake --build "wabt-${BRANCH}/build" --parallel 8 \
     && cmake --install "wabt-${BRANCH}/build" --prefix /usr --strip -v \
     && rm -rf "wabt-${BRANCH}"
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && ./aws/install
