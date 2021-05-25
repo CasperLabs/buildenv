@@ -27,27 +27,6 @@ pipeline:
     when:
       event: [ push, tag ]
 
-  build-clarity-build:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./update-images.sh clarity-build
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  push-image-clarity-build:
-    image: docker:stable
-    commands:
-      - apk add git bash
-      - ./push-docker.sh clarity-build
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    secrets:
-      - docker_username
-      - docker_password
-    when:
-      event: [ push, tag ]
-
   build-node-build-u1804:
     image: docker:stable
     commands:
