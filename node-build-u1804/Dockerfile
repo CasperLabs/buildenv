@@ -8,7 +8,7 @@ RUN apt-get update \
               pkg-config libssl-dev jq gettext-base python3.6 python3-pip
 
 # toml for publish script
-RUN pip3 install toml
+RUN pip3 install toml PyGithub semantic_version
 
 # install cmake
 RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz | tar -C /usr/local --strip-components=1 -xz
