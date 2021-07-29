@@ -14,7 +14,7 @@ RUN pip3 install toml PyGithub semantic_version
 RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz | tar -C /usr/local --strip-components=1 -xz
 
 # Install node.js, npm, and assemblyscript
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get -y install nodejs \
     && npm install --global remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
 
