@@ -27,7 +27,7 @@ RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
     && sh rustup.sh -y
 ENV PATH="$PATH:/root/.cargo/bin"
 
-RUN echo export RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/CasperLabs/casper-node/master/rust-toolchain) >> ~/.rust_env \
+RUN echo export RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/casper-network/casper-node/release-1.3.1/rust-toolchain) >> ~/.rust_env \
     && . ~/.rust_env; rustup toolchain install "${RUST_TOOLCHAIN}" \
     && . ~/.rust_env; rustup toolchain install stable \
     && rustup update \
