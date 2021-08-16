@@ -16,7 +16,7 @@ RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.
 # Install node.js, npm, and assemblyscript
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get -y install nodejs \
-    && npm install --global remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
+    && npm install --global npm install -g markdown-link-check remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
 
 RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
     && sh rustup.sh -y
