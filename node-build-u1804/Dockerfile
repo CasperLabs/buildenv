@@ -2,10 +2,12 @@
 # bionic = 18.04
 FROM ubuntu:bionic
 
-RUN apt-get update \
-    && apt-get install -y curl gnupg gcc git ca-certificates \
+# Installing ca-certificates and updating again as work around for nodejs certificate issue.
+RUN apt-get update ; apt-get install ca-certificates ; \
+    apt-get update \
+    && apt-get install -y curl gnupg gcc git \
               protobuf-compiler libprotobuf-dev unzip \
-              pkg-config libssl-dev jq gettext-base python3.6 python3-pip
+              pkg-config libssl-dev jq gettext-base python3.6 python3-pip lsof
 
 # toml for publish script
 RUN pip3 install toml PyGithub semantic_version
@@ -18,17 +20,19 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get -y install nodejs \
     && npm install --global markdown-link-check remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
 
+RUN python3 -m pip install supervisor toml
+
 RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
     && sh rustup.sh -y
 ENV PATH="$PATH:/root/.cargo/bin"
 
-RUN echo export RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/CasperLabs/casper-node/master/rust-toolchain) >> ~/.rust_env \
-    && . ~/.rust_env; rustup toolchain install "${RUST_TOOLCHAIN}" \
-    && . ~/.rust_env; rustup toolchain install stable \
+RUN rustup toolchain install stable \
     && rustup update \
-    && . ~/.rust_env; cargo +${RUST_TOOLCHAIN} install cargo-deb
+    && cargo install cargo-deb \
+    && cargo install cargo-audit \
+    && cargo install cargo-rpm
 
-RUN git clone https://github.com/CasperLabs/casper-node.git ~/casper-node \
+RUN git clone https://github.com/casper-network/casper-node.git ~/casper-node \
     && cd ~/casper-node \
     && make setup \
     && ~/.cargo/bin/cargo fetch \
