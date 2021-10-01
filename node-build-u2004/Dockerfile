@@ -17,17 +17,19 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && apt-get -y install nodejs \
     && npm install --global remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
 
+RUN python3 -m pip install supervisor toml
+
 RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
     && sh rustup.sh -y
 ENV PATH="$PATH:/root/.cargo/bin"
 
-RUN echo export RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/CasperLabs/casper-node/master/rust-toolchain) >> ~/.rust_env \
+RUN echo export RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/casper-network/casper-node/master/rust-toolchain) >> ~/.rust_env \
     && . ~/.rust_env; rustup toolchain install "${RUST_TOOLCHAIN}" \
     && . ~/.rust_env; rustup toolchain install stable \
     && rustup update \
     && . ~/.rust_env; cargo +${RUST_TOOLCHAIN} install cargo-deb
 
-RUN git clone https://github.com/CasperLabs/casper-node.git ~/casper-node \
+RUN git clone https://github.com/casper-node/casper-node.git ~/casper-node \
     && cd ~/casper-node \
     && make setup \
     && ~/.cargo/bin/cargo fetch \
