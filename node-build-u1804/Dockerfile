@@ -5,7 +5,7 @@ FROM ubuntu:bionic
 RUN apt-get update \
     && apt-get install -y curl gnupg gcc git ca-certificates \
               protobuf-compiler libprotobuf-dev unzip \
-              pkg-config libssl-dev jq gettext-base python3.6 python3-pip
+              pkg-config libssl-dev jq gettext-base python3.6 python3-pip lsof
 
 # toml for publish script
 RUN pip3 install toml PyGithub semantic_version
