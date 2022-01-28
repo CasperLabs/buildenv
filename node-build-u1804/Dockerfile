@@ -30,7 +30,8 @@ RUN rustup toolchain install stable \
     && rustup update \
     && cargo install cargo-deb \
     && cargo install cargo-audit \
-    && cargo install cargo-rpm
+    && cargo install cargo-rpm \
+    && cargo install --git https://github.com/paritytech/cachepot --branch master
 
 RUN git clone https://github.com/casper-network/casper-node.git ~/casper-node \
     && cd ~/casper-node \
