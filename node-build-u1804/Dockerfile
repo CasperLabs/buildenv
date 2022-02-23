@@ -7,7 +7,8 @@ RUN apt-get update ; apt-get install ca-certificates ; \
     apt-get update \
     && apt-get install -y curl gnupg gcc git \
               protobuf-compiler libprotobuf-dev unzip \
-              pkg-config libssl-dev jq gettext-base python3.6 python3-pip lsof
+              pkg-config libssl-dev jq gettext-base \
+              python3.6 python3-pip lsof clang
 
 # toml for publish script
 RUN pip3 install toml PyGithub semantic_version
