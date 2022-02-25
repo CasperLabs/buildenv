@@ -1,4 +1,4 @@
-FROM centos:centos8
+FROM rockylinux:8
 
 # Required to not have issues with cmake.
 # cmake: symbol lookup error: cmake: undefined symbol: archive_write_add_filter_zstd
