@@ -23,12 +23,11 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
 
 RUN python3 -m pip install supervisor toml
 
-RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
-    && sh rustup.sh -y
 ENV PATH="$PATH:/root/.cargo/bin"
-
-RUN rustup toolchain install stable \
+RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
+    && sh rustup.sh -y \
     && rustup update \
+    && rustup toolchain install stable \
     && cargo install cargo-deb \
     && cargo install cargo-audit \
     && cargo install cargo-rpm \
