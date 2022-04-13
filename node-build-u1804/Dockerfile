@@ -23,8 +23,8 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
 
 RUN python3 -m pip install supervisor toml
 
+ENV PATH="$PATH:/root/.cargo/bin"
 RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
-    && source $HOME/.cargo/env \
     && sh rustup.sh -y \
     && rustup update \
     && rustup toolchain install stable \
@@ -32,7 +32,6 @@ RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
     && cargo install cargo-audit \
     && cargo install cargo-rpm \
     && cargo install --git https://github.com/paritytech/cachepot --branch master
-ENV PATH="$PATH:/root/.cargo/bin"
 
 RUN git clone https://github.com/casper-network/casper-node.git ~/casper-node \
     && cd ~/casper-node \
