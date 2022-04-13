@@ -24,6 +24,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
 RUN python3 -m pip install supervisor toml
 
 RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
+    && source $HOME/.cargo/env \
     && sh rustup.sh -y \
     && rustup update \
     && rustup toolchain install stable \
