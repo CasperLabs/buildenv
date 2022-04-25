@@ -31,6 +31,7 @@ RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
     && cargo install cargo-deb \
     && cargo install cargo-audit \
     && cargo install cargo-rpm \
+    && cargo install cargo-criterion \
     && cargo install --git https://github.com/paritytech/cachepot --branch master
 
 RUN git clone https://github.com/casper-network/casper-node.git ~/casper-node \
