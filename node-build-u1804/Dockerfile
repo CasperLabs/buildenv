@@ -19,7 +19,7 @@ RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.
 # Install node.js, npm, and assemblyscript
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get -y install nodejs \
-    && npm install --global markdown-link-check remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
+    && npm install --global markdown-link-check remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.17.14"
 
 RUN python3 -m pip install supervisor toml
 
