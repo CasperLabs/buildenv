@@ -8,7 +8,13 @@ RUN apt-get update ; apt-get install ca-certificates ; \
     && apt-get install -y curl gnupg gcc git \
               protobuf-compiler libprotobuf-dev unzip \
               pkg-config libssl-dev jq gettext-base \
-              python3.6 python3-pip lsof clang
+              python3.6 python3-pip lsof clang locales
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # toml for publish script
 RUN pip3 install toml PyGithub semantic_version tomlkit
