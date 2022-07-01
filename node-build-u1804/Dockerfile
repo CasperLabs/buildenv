@@ -17,9 +17,11 @@ RUN pip3 install toml PyGithub semantic_version tomlkit
 RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz | tar -C /usr/local --strip-components=1 -xz
 
 # Install node.js, npm, and assemblyscript
+# Downgrading npm to 8.5.5
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get -y install nodejs \
-    && npm install --global markdown-link-check remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.17.14"
+    && npm install --global markdown-link-check remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.17.14" \
+    && npm install -g npm@8.5.5
 
 RUN python3 -m pip install supervisor toml
 
