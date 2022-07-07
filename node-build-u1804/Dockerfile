@@ -17,7 +17,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # toml for publish script
-RUN pip3 install toml PyGithub semantic_version tomlkit
+RUN pip3 install toml tomlkit supervisor
 
 # install cmake
 RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz | tar -C /usr/local --strip-components=1 -xz
@@ -26,10 +26,8 @@ RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.
 # Downgrading npm to 8.5.5
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get -y install nodejs \
-    && npm install --global markdown-link-check remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.17.14" \
-    && npm install -g npm@8.5.5
+    && npm install --global remark-cli "assemblyscript@0.17.14" "npm@8.5.5"
 
-RUN python3 -m pip install supervisor toml
 
 ENV PATH="$PATH:/root/.cargo/bin"
 RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
@@ -39,7 +37,6 @@ RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
     && cargo install cargo-deb \
     && cargo install cargo-audit \
     && cargo install cargo-rpm \
-    && cargo install cargo-criterion \
     && cargo install --git https://github.com/paritytech/cachepot --branch master
 
 RUN git clone https://github.com/casper-network/casper-node.git ~/casper-node \
