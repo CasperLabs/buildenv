@@ -18,7 +18,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # toml for publish script
-RUN pip3 install toml tomlkit supervisor
+RUN pip3 install toml tomlkit supervisor psutil requests
 
 # install cmake
 RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz | tar -C /usr/local --strip-components=1 -xz
