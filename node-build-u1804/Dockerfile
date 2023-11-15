@@ -9,7 +9,7 @@ RUN apt-get update ; apt-get install ca-certificates ; \
               protobuf-compiler libprotobuf-dev unzip \
               pkg-config libssl-dev jq gettext-base \
               python3.6 python3-pip lsof clang locales \
-              net-tools
+              net-tools socat
 
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
