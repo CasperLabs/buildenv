@@ -5,32 +5,49 @@ FROM ubuntu:focal
 # DEBIAN_FRONTEND required for tzdata dependency install
 RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" \
-        apt-get install -y curl gnupg gcc git ca-certificates \
-              protobuf-compiler libprotobuf-dev \
-              pkg-config libssl-dev make build-essential jq gettext-base lsof
+        apt-get install -y \
+              curl gnupg gcc git \
+              protobuf-compiler libprotobuf-dev unzip \
+              pkg-config libssl-dev jq gettext-base \
+              python3.7 python3-pip lsof clang locales \
+              net-tools cmake \
+    && rm -rf /var/lib/apt/lists/*
 
-# install cmake
-RUN curl -Ls https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz | tar -C /usr/local --strip-components=1 -xz
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# toml for publish script
+RUN pip3 install toml tomlkit supervisor psutil requests
 
 # Install node.js, npm, and assemblyscript
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+# Downgrading npm to 8.5.5
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get -y install nodejs \
-    && npm install --global remark-cli remark-validate-links remark-lint-no-dead-urls "assemblyscript@0.9.1"
+    && npm install --global remark-cli "assemblyscript@0.17.14" "npm@8.5.5"
 
-RUN python3 -m pip install supervisor toml
-
-RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
-    && sh rustup.sh -y
 ENV PATH="$PATH:/root/.cargo/bin"
-
-RUN echo export RUST_TOOLCHAIN=$(curl -s https://raw.githubusercontent.com/casper-network/casper-node/master/rust-toolchain) >> ~/.rust_env \
-    && . ~/.rust_env; rustup toolchain install "${RUST_TOOLCHAIN}" \
-    && . ~/.rust_env; rustup toolchain install stable \
+RUN curl -f -L https://static.rust-lang.org/rustup.sh -O \
+    && sh rustup.sh -y \
     && rustup update \
-    && . ~/.rust_env; cargo +${RUST_TOOLCHAIN} install cargo-deb
+    && rustup toolchain install stable \
+    && cargo install cargo-deb \
+    && cargo install cargo-audit \
+    && cargo install cargo-rpm \
+    && cargo install --git https://github.com/paritytech/cachepot --branch master
 
-RUN git clone https://github.com/casper-node/casper-node.git ~/casper-node \
-    && cd ~/casper-node \
-    && make setup \
-    && ~/.cargo/bin/cargo fetch \
-    && rm -rf ~/casper-node
+RUN BRANCH="1.0.20" \
+    && git clone --branch ${BRANCH} https://github.com/WebAssembly/wabt.git "wabt-${BRANCH}" \
+    && cd "wabt-${BRANCH}" \
+    && git submodule update --init \
+    && cd - \
+    && cmake -S "wabt-${BRANCH}" -B "wabt-${BRANCH}/build" \
+    && cmake --build "wabt-${BRANCH}/build" --parallel 8 \
+    && cmake --install "wabt-${BRANCH}/build" --prefix /usr --strip -v \
+    && rm -rf "wabt-${BRANCH}"
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && unzip awscliv2.zip \
+    && ./aws/install
